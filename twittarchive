@@ -1,0 +1,67 @@
+Certainly! Here's an improved version of the guide:
+
+---
+
+**Archiving Twitter Accounts and Hashtags: A Comprehensive Guide**
+
+Archiving Twitter content can be essential for research, analysis, or simply preserving digital history. Here's a step-by-step guide to efficiently archive Twitter accounts and hashtags using snscrape.
+
+**Number One: The Fast Way**
+
+The quickest method involves utilizing snscrape with the --jsonl parameter to output tweet data in JSONL format. This method is straightforward and efficient.
+
+1. **Using snscrape:**
+   - Execute the following command in your terminal:
+     ```
+     snscrape --jsonl --progress twitter-user Ukraine >> tweets.jsonl
+     ```
+     or
+     ```
+     snscrape --jsonl --progress twitter-hashtag BeautifulUkraine >> tweets.jsonl
+     ```
+   - This command retrieves tweets from a specific user or hashtag and appends the data to a file named `tweets.jsonl`.
+
+2. **Important Note:**
+   - Avoid simultaneously appending to the same file from multiple terminals, as it may corrupt the file.
+
+**Number Two: The Thorough Way**
+
+For a more comprehensive archive, employing a recursive scraping method ensures capturing replies and parent replies, providing deeper insights into conversations.
+
+1. **Scrape Post IDs:**
+   - Use snscrape to scrape post IDs for your search term:
+     ```
+     snscrape -f "{id}" --progress twitter-user Ukraine >> twitterids
+     ```
+     or
+     ```
+     snscrape -f "{id}" --progress twitter-hashtag BeautifulUkraine >> twitterids
+     ```
+   - This step saves post IDs to a file named `twitterids`.
+
+2. **Batch Retrieval of Tweets:**
+   - Clone the batch-get-tweets repository and navigate to it.
+   - Set the path to the `get_tweets.py` script:
+     ```
+     export ARCHIVIST_TWEETS_SCRIPT=$(find `pwd`/get_tweets.py)
+     ```
+   - Install the required package and run the script:
+     ```
+     python3 -m pip install alive_progress
+     python3 $ARCHIVIST_TWEETS_SCRIPT
+     ```
+
+3. **Monitoring Progress:**
+   - Monitor the progress, as the process may take a considerable amount of time depending on factors such as the number of Twitter IDs and replies.
+
+**Reading the Archive:**
+
+Interpreting the JSONL format may require some effort, but the archived data contains valuable tweet information. Consider contributing to the development of a viewer tool for easier data interpretation.
+
+For more information and updates on viewer development, visit: https://github.com/archivist-rs/archivist.
+
+Happy archiving!
+
+---
+
+This revised guide provides clearer instructions and organization, making it easier for users to follow the steps involved in archiving Twitter content.
